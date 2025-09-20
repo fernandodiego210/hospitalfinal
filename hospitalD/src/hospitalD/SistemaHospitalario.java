@@ -44,7 +44,7 @@ public class SistemaHospitalario {
     private static void inicializarSistema() {
         hospital = new Hospital("Hospital General San José", 
                                "Av. Salud 1234, Lima", 
-                               "+51-1-234-5678", 
+                               "+51 9291787446", 
                                "contacto@hospitalsanjose.pe");
         
         dao = new HospitalDAO();
