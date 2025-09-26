@@ -107,11 +107,11 @@ public class SistemaHospitalario_COMPLETO {
     }
 
     private static void mostrarError(String mensaje) {
-        System.out.println(RED + "❌ ERROR: " + mensaje + RESET);
+        System.out.println(RED + " X ERROR: " + mensaje + RESET);
     }
 
     private static void mostrarExito(String mensaje) {
-        System.out.println(GREEN + "✅ " + mensaje + RESET);
+        System.out.println(GREEN + "/" + mensaje + RESET);
     }
 
     private static boolean confirmar(String mensaje) {
@@ -136,7 +136,7 @@ public class SistemaHospitalario_COMPLETO {
         hospital = new Hospital(
             "HOSPITAL GENERAL SANTA MARÍA",
             "Av. Principal 123, Ciudad Central",
-            "+51-1-234-5678",
+            "+51-987654321",
             "contacto@hospitalsantamaria.pe"
         );
         hospital.setIdHospital(1);
@@ -147,12 +147,12 @@ public class SistemaHospitalario_COMPLETO {
         // Verificar conexión a BD
         verificarConexionBD();
 
-        System.out.println(GREEN + "✅ Sistema inicializado correctamente" + RESET);
+        System.out.println(GREEN + " Sistema inicializado correctamente" + RESET);
         pausar();
     }
 
     private static void cerrarSistema() {
-        System.out.println(CYAN + "\n🏥 Cerrando Sistema Hospitalario..." + RESET);
+        System.out.println(CYAN + "\n Cerrando Sistema Hospitalario..." + RESET);
         System.out.println("Gracias por usar el sistema de gestión hospitalaria.");
         if (scanner != null) {
             scanner.close();
@@ -163,16 +163,16 @@ public class SistemaHospitalario_COMPLETO {
         limpiarPantalla();
         System.out.println(CYAN + "╔═══════════════════════════════════════════════════════════════════════════════════╗");
         System.out.println("║                                                                                   ║");
-        System.out.println("║           🏥 SISTEMA INTEGRAL DE GESTIÓN HOSPITALARIA v2.0 🏥                    ║");
+        System.out.println("║            SISTEMA INTEGRAL DE GESTIÓN HOSPITALARIA v2.0                      ║");
         System.out.println("║                                                                                   ║");
         System.out.println("║                        Hospital General Santa María                               ║");
         System.out.println("║                                                                                   ║");
-        System.out.println("║  📊 Gestión Completa    🚑 Emergencias      🔬 Laboratorio    💊 Farmacia      ║");
-        System.out.println("║  👨‍⚕️ Personal Médico     📅 Citas Médicas    🏥 Quirófanos     📈 Reportes      ║");
+        System.out.println("║     Gestión Completa      Emergencias        Laboratorio      Farmacia      ║");
+        System.out.println("║     Personal Médico       Citas Médicas      Quirófanos       Reportes      ║");
         System.out.println("║                                                                                   ║");
         System.out.println("╚═══════════════════════════════════════════════════════════════════════════════════╝" + RESET);
         System.out.println();
-        System.out.println(YELLOW + "🚀 Inicializando sistema..." + RESET);
+        System.out.println(YELLOW + " Inicializando sistema..." + RESET);
 
         try {
             Thread.sleep(1500);
@@ -472,19 +472,19 @@ public class SistemaHospitalario_COMPLETO {
         System.out.println(CYAN + "┌─────────────────────────────────────────────────────────────────┐");
         System.out.println("│                    🏥 OPCIONES PRINCIPALES                      │");
         System.out.println("├─────────────────────────────────────────────────────────────────┤");
-        System.out.println("│  1️⃣  👨‍⚕️ Gestión de Personal Médico                                │");
-        System.out.println("│  2️⃣  👤 Gestión de Pacientes                                      │");
-        System.out.println("│  3️⃣  📅 Gestión de Citas Médicas                                 │");
-        System.out.println("│  4️⃣  🚑 Gestión de Emergencias                                   │");
-        System.out.println("│  5️⃣  💊 Gestión de Farmacia                                      │");
-        System.out.println("│  6️⃣  🔬 Gestión de Laboratorio                                   │");
-        System.out.println("│  7️⃣  🏥 Gestión de Quirófanos                                    │");
-        System.out.println("│  8️⃣  📊 Monitoreo de Signos Vitales                             │");
-        System.out.println("│  9️⃣  💼 Gestión de Seguros Médicos                              │");
-        System.out.println("│  🔟 📈 Reportes y Estadísticas                                   │");
-        System.out.println("│  1️⃣1️⃣ ⚙️ Configuración del Sistema                               │");
-        System.out.println("│  1️⃣2️⃣ ❓ Ayuda y Soporte                                         │");
-        System.out.println("│  0️⃣  🚪 Salir del Sistema                                        │");
+        System.out.println("│  1️  Gestión de Personal Médico                                │");
+        System.out.println("│  2️  Gestión de Pacientes                                      │");
+        System.out.println("│  3️  Gestión de Citas Médicas                                 │");
+        System.out.println("│  4️  Gestión de Emergencias                                   │");
+        System.out.println("│  5️  Gestión de Farmacia                                      │");
+        System.out.println("│  6️  Gestión de Laboratorio                                   │");
+        System.out.println("│  7️  Gestión de Quirófanos                                    │");
+        System.out.println("│  8️  Monitoreo de Signos Vitales                             │");
+        System.out.println("│  9  Gestión de Seguros Médicos                              │");
+        System.out.println("│  10 Reportes y Estadísticas                                   │");
+        System.out.println("│  1️1 Configuración del Sistema                               │");
+        System.out.println("│  1️2 Ayuda y Soporte                                         │");
+        System.out.println("│  0️  Salir del Sistema                                        │");
         System.out.println("└─────────────────────────────────────────────────────────────────┘" + RESET);
 
         mostrarStatusBar();
@@ -493,18 +493,387 @@ public class SistemaHospitalario_COMPLETO {
 
     private static void mostrarStatusBar() {
         System.out.println();
-        System.out.println(BLUE + "📊 Hospital: " + hospital.getNombreHospital() + 
-                          " | 👥 Personal: " + (hospital.getDoctores().size() + hospital.getEnfermeros().size()) +
-                          " | 👤 Pacientes: " + hospital.getPacientes().size() +
-                          " | 🚑 Emergencias: " + hospital.getEmergenciasActivas().size() + RESET);
+        System.out.println(BLUE + " Hospital: " + hospital.getNombreHospital() + 
+                          " |  Personal: " + (hospital.getDoctores().size() + hospital.getEnfermeros().size()) +
+                          " |  Pacientes: " + hospital.getPacientes().size() +
+                          " |  Emergencias: " + hospital.getEmergenciasActivas().size() + RESET);
         System.out.println();
     }
 
     // ============= MÉTODOS STUB PARA FUNCIONALIDADES =============
     
+ // Reemplaza el método gestionPersonalMedico() en tu SistemaHospitalario_COMPLETO.java
+
     private static void gestionPersonalMedico() {
-        mostrarHeader("GESTIÓN DE PERSONAL MÉDICO");
-        System.out.println("Funcionalidad en desarrollo...");
+        boolean continuar = true;
+
+        while (continuar) {
+            limpiarPantalla();
+            mostrarHeader("GESTIÓN DE PERSONAL MÉDICO");
+            
+            System.out.println(GREEN + "┌─────────────────────────────────────────────────────────┐");
+            System.out.println("│                👨‍⚕️ PERSONAL MÉDICO                          │");
+            System.out.println("├─────────────────────────────────────────────────────────┤");
+            System.out.println("│  1️   Registrar Doctor                                     │");
+            System.out.println("│  2️   Registrar Enfermero                                 │");
+            System.out.println("│  3️   Listar Todo el Personal                             │");
+            System.out.println("│  4️   Buscar Personal                                     │");
+            System.out.println("│  5️   Gestionar Especialidades                            │");
+            System.out.println("│  6️   Horarios del Personal                               │");
+            System.out.println("│  7️   Estadísticas del Personal                           │");
+            System.out.println("│  0️   Volver al Menú Principal                            │");
+            System.out.println("└─────────────────────────────────────────────────────────┘" + RESET);
+            
+            System.out.print(BOLD + "Seleccione una opción: " + RESET);
+            int opcion = leerOpcion(0, 7);
+            
+            switch (opcion) {
+                case 1:
+                    registrarDoctor();
+                    break;
+                case 2:
+                    registrarEnfermero();
+                    break;
+                case 3:
+                    listarPersonalMedico();
+                    break;
+                case 4:
+                    buscarPersonal();
+                    break;
+                case 5:
+                    gestionarEspecialidades();
+                    break;
+                case 6:
+                    gestionarHorarios();
+                    break;
+                case 7:
+                    estadisticasPersonal();
+                    break;
+                case 0:
+                    continuar = false;
+                    break;
+            }
+        }
+    }
+
+    private static void registrarDoctor() {
+        limpiarPantalla();
+        mostrarHeader("REGISTRO DE DOCTOR");
+
+        try {
+            System.out.println(CYAN + " Ingrese los datos del doctor:" + RESET);
+            System.out.println();
+            
+            System.out.print("Nombre: ");
+            String nombre = scanner.nextLine();
+            
+            System.out.print("Apellido: ");
+            String apellido = scanner.nextLine();
+            
+            System.out.print("DNI: ");
+            String dni = scanner.nextLine();
+            
+            System.out.print("Teléfono: ");
+            String telefono = scanner.nextLine();
+            
+            System.out.print("Email: ");
+            String email = scanner.nextLine();
+            
+            System.out.print("Dirección: ");
+            String direccion = scanner.nextLine();
+            
+            System.out.print("Fecha de nacimiento (YYYY-MM-DD): ");
+            LocalDate fechaNac = LocalDate.parse(scanner.nextLine());
+            
+            System.out.print("Número de licencia médica: ");
+            String licencia = scanner.nextLine();
+            
+            // Mostrar especialidades disponibles
+            System.out.println("\n Especialidades disponibles:");
+            List<Especialidad> especialidades = hospital.getEspecialidades();
+            for (int i = 0; i < especialidades.size(); i++) {
+                System.out.println((i + 1) + ". " + especialidades.get(i).getNombreEspecialidad());
+            }
+            System.out.print("Seleccione especialidad (número): ");
+            int indiceEsp = leerEntero() - 1;
+            
+            if (indiceEsp < 0 || indiceEsp >= especialidades.size()) {
+                mostrarError("Especialidad no válida");
+                return;
+            }
+            
+            System.out.print("Fecha de ingreso (YYYY-MM-DD): ");
+            LocalDate fechaIngreso = LocalDate.parse(scanner.nextLine());
+            
+            System.out.print("Salario mensual: ");
+            BigDecimal salario = new BigDecimal(scanner.nextLine());
+            
+            System.out.print("Horario inicio (HH:MM): ");
+            LocalTime horaInicio = LocalTime.parse(scanner.nextLine());
+            
+            System.out.print("Horario fin (HH:MM): ");
+            LocalTime horaFin = LocalTime.parse(scanner.nextLine());
+            
+            // Crear doctor
+            Doctor doctor = new Doctor(nombre, apellido, dni, telefono, email, direccion,
+                                     fechaNac, licencia, especialidades.get(indiceEsp),
+                                     fechaIngreso, salario, horaInicio, horaFin);
+            
+            doctor.setIdDoctor(hospital.getDoctores().size() + 1);
+            hospital.agregarDoctor(doctor);
+            
+            // Intentar guardar en BD
+            boolean guardadoDB = hospitalDAO.insertarDoctor(doctor);
+            
+            mostrarExito("Doctor registrado exitosamente" + 
+                        (guardadoDB ? " (guardado en BD)" : " (solo en memoria)"));
+            
+        } catch (Exception e) {
+            mostrarError("Error al registrar doctor: " + e.getMessage());
+        }
+
+        pausar();
+    }
+
+    private static void registrarEnfermero() {
+        limpiarPantalla();
+        mostrarHeader("REGISTRO DE ENFERMERO");
+
+        try {
+            System.out.println(CYAN + " Ingrese los datos del enfermero:" + RESET);
+            System.out.println();
+            
+            System.out.print("Nombre: ");
+            String nombre = scanner.nextLine();
+            
+            System.out.print("Apellido: ");
+            String apellido = scanner.nextLine();
+            
+            System.out.print("DNI: ");
+            String dni = scanner.nextLine();
+            
+            System.out.print("Teléfono: ");
+            String telefono = scanner.nextLine();
+            
+            System.out.print("Email: ");
+            String email = scanner.nextLine();
+            
+            System.out.print("Dirección: ");
+            String direccion = scanner.nextLine();
+            
+            System.out.print("Fecha de nacimiento (YYYY-MM-DD): ");
+            LocalDate fechaNac = LocalDate.parse(scanner.nextLine());
+            
+            System.out.print("Número de colegiatura: ");
+            String colegiatura = scanner.nextLine();
+            
+            System.out.println("Turnos disponibles: 1) MAÑANA  2) TARDE  3) NOCHE");
+            System.out.print("Seleccione turno: ");
+            int turnoOp = leerEntero();
+            String turno = turnoOp == 1 ? "MAÑANA" : turnoOp == 2 ? "TARDE" : "NOCHE";
+            
+            System.out.print("Área de trabajo: ");
+            String area = scanner.nextLine();
+            
+            System.out.print("Fecha de ingreso (YYYY-MM-DD): ");
+            LocalDate fechaIngreso = LocalDate.parse(scanner.nextLine());
+            
+            // Crear enfermero
+            Enfermero enfermero = new Enfermero(nombre, apellido, dni, telefono, email,
+                                              direccion, fechaNac, colegiatura, turno,
+                                              area, fechaIngreso);
+            
+            enfermero.setIdEnfermero(hospital.getEnfermeros().size() + 1);
+            hospital.agregarEnfermero(enfermero);
+            
+            mostrarExito("Enfermero registrado exitosamente");
+            
+        } catch (Exception e) {
+            mostrarError("Error al registrar enfermero: " + e.getMessage());
+        }
+
+        pausar();
+    }
+
+    private static void listarPersonalMedico() {
+        limpiarPantalla();
+        mostrarHeader("PERSONAL MÉDICO DEL HOSPITAL");
+
+        System.out.println(GREEN + " DOCTORES (" + hospital.getDoctores().size() + "):" + RESET);
+        System.out.println("═".repeat(80));
+
+        if (hospital.getDoctores().isEmpty()) {
+            System.out.println("No hay doctores registrados");
+        } else {
+            for (Doctor doctor : hospital.getDoctores()) {
+                System.out.println("   Dr. " + doctor.getNombreCompleto());
+                System.out.println("   Licencia: " + doctor.getNumeroLicencia());
+                System.out.println("   Especialidad: " + 
+                    (doctor.getEspecialidad() != null ? doctor.getEspecialidad().getNombreEspecialidad() : "Sin especialidad"));
+                System.out.println("   Horario: " + doctor.getHorarioInicio() + " - " + doctor.getHorarioFin());
+                System.out.println("   Estado: " + doctor.getEstado() + " | Experiencia: " + doctor.getAnosExperiencia() + " años");
+                System.out.println();
+            }
+        }
+
+        System.out.println(BLUE + " ENFERMEROS (" + hospital.getEnfermeros().size() + "):" + RESET);
+        System.out.println("═".repeat(80));
+
+        if (hospital.getEnfermeros().isEmpty()) {
+            System.out.println("No hay enfermeros registrados");
+        } else {
+            for (Enfermero enfermero : hospital.getEnfermeros()) {
+                System.out.println("👩‍⚕️ Enf. " + enfermero.getNombreCompleto());
+                System.out.println("   Colegiatura: " + enfermero.getNumeroColegiatura());
+                System.out.println("   Turno: " + enfermero.getTurno());
+                System.out.println("   Área: " + enfermero.getAreaTrabajo());
+                System.out.println("   Experiencia: " + enfermero.getAnosExperiencia() + " años");
+                System.out.println();
+            }
+        }
+
+        pausar();
+    }
+
+    private static void buscarPersonal() {
+        limpiarPantalla();
+        mostrarHeader("BUSCAR PERSONAL");
+
+        System.out.print("Ingrese término de búsqueda (nombre, DNI, licencia): ");
+        String termino = scanner.nextLine().toLowerCase();
+
+        boolean encontrado = false;
+
+        System.out.println(GREEN + "\n  RESULTADOS DE BÚSQUEDA:" + RESET);
+        System.out.println("═".repeat(60));
+
+        // Buscar doctores
+        for (Doctor doctor : hospital.getDoctores()) {
+            if (doctor.getNombreCompleto().toLowerCase().contains(termino) ||
+                doctor.getDni().contains(termino) ||
+                doctor.getNumeroLicencia().toLowerCase().contains(termino)) {
+                
+                System.out.println("   Dr. " + doctor.getNombreCompleto());
+                System.out.println("   DNI: " + doctor.getDni());
+                System.out.println("   Licencia: " + doctor.getNumeroLicencia());
+                System.out.println("   Especialidad: " + 
+                    (doctor.getEspecialidad() != null ? doctor.getEspecialidad().getNombreEspecialidad() : "General"));
+                System.out.println();
+                encontrado = true;
+            }
+        }
+
+        // Buscar enfermeros
+        for (Enfermero enfermero : hospital.getEnfermeros()) {
+            if (enfermero.getNombreCompleto().toLowerCase().contains(termino) ||
+                enfermero.getDni().contains(termino) ||
+                enfermero.getNumeroColegiatura().toLowerCase().contains(termino)) {
+                
+                System.out.println("   Enf. " + enfermero.getNombreCompleto());
+                System.out.println("   DNI: " + enfermero.getDni());
+                System.out.println("   Colegiatura: " + enfermero.getNumeroColegiatura());
+                System.out.println("   Área: " + enfermero.getAreaTrabajo());
+                System.out.println();
+                encontrado = true;
+            }
+        }
+
+        if (!encontrado) {
+            System.out.println("No se encontraron resultados para: " + termino);
+        }
+
+        pausar();
+    }
+
+    private static void gestionarEspecialidades() {
+        limpiarPantalla();
+        mostrarHeader("GESTIÓN DE ESPECIALIDADES");
+
+        System.out.println(CYAN + " ESPECIALIDADES DISPONIBLES:" + RESET);
+        System.out.println("═".repeat(60));
+
+        List<Especialidad> especialidades = hospital.getEspecialidades();
+        if (especialidades.isEmpty()) {
+            System.out.println("No hay especialidades registradas");
+        } else {
+            for (Especialidad esp : especialidades) {
+                System.out.println("• " + esp.getNombreEspecialidad());
+                if (esp.getDescripcion() != null) {
+                    System.out.println("  " + esp.getDescripcion());
+                }
+                System.out.println();
+            }
+        }
+
+        pausar();
+    }
+
+    private static void gestionarHorarios() {
+        limpiarPantalla();
+        mostrarHeader("HORARIOS DEL PERSONAL");
+
+        System.out.println(GREEN + " HORARIOS DE DOCTORES:" + RESET);
+        System.out.println("═".repeat(60));
+
+        for (Doctor doctor : hospital.getDoctores()) {
+            System.out.println("Dr. " + doctor.getNombreCompleto());
+            System.out.println("   Horario: " + doctor.getHorarioInicio() + " - " + doctor.getHorarioFin());
+            System.out.println("   Estado: " + (doctor.estaDisponible() ? GREEN + "Disponible" + RESET : RED + "No disponible" + RESET));
+            System.out.println();
+        }
+
+        System.out.println(BLUE + " TURNOS DE ENFERMEROS:" + RESET);
+        System.out.println("═".repeat(60));
+
+        for (Enfermero enfermero : hospital.getEnfermeros()) {
+            System.out.println("Enf. " + enfermero.getNombreCompleto());
+            System.out.println("   Turno: " + enfermero.getTurno());
+            System.out.println("   Área: " + enfermero.getAreaTrabajo());
+            System.out.println();
+        }
+
+        pausar();
+    }
+
+    private static void estadisticasPersonal() {
+        limpiarPantalla();
+        mostrarHeader("ESTADÍSTICAS DEL PERSONAL");
+
+        int totalDoctores = hospital.getDoctores().size();
+        int totalEnfermeros = hospital.getEnfermeros().size();
+        int totalPersonal = totalDoctores + totalEnfermeros;
+
+        System.out.println(BOLD + " RESUMEN GENERAL:" + RESET);
+        System.out.println("Total de personal médico: " + totalPersonal);
+        System.out.println("Doctores: " + totalDoctores);
+        System.out.println("Enfermeros: " + totalEnfermeros);
+        System.out.println();
+
+        // Estadísticas por especialidad
+        if (!hospital.getDoctores().isEmpty()) {
+            System.out.println(GREEN + " DOCTORES POR ESPECIALIDAD:" + RESET);
+            Map<String, Long> porEspecialidad = hospital.getDoctores().stream()
+                    .collect(Collectors.groupingBy(
+                        d -> d.getEspecialidad() != null ? d.getEspecialidad().getNombreEspecialidad() : "General",
+                        Collectors.counting()));
+
+            porEspecialidad.forEach((especialidad, cantidad) -> 
+                    System.out.println("• " + especialidad + ": " + cantidad + " doctor(es)"));
+            System.out.println();
+        }
+
+        // Estadísticas por turno
+        if (!hospital.getEnfermeros().isEmpty()) {
+            System.out.println(BLUE + " ENFERMEROS POR TURNO:" + RESET);
+            Map<String, Long> porTurno = hospital.getEnfermeros().stream()
+                    .collect(Collectors.groupingBy(
+                        Enfermero::getTurno,
+                        Collectors.counting()));
+
+            porTurno.forEach((turno, cantidad) -> 
+                    System.out.println("• " + turno + ": " + cantidad + " enfermero(s)"));
+        }
+
         pausar();
     }
 

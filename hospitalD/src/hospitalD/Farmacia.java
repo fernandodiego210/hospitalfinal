@@ -1,8 +1,10 @@
 package hospitalD;
 
 import java.time.LocalTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 // Clase Farmacia para gestionar medicamentos
 public class Farmacia {
@@ -13,7 +15,7 @@ public class Farmacia {
     private Doctor farmaceuticoJefe; // Relación con Doctor
     private LocalTime horarioInicio;
     private LocalTime horarioFin;
-    private List<Medicamento> inventario; // Composición
+    private List<MedicamentoAmpliado> inventario; // Composición - CORREGIDO: usar MedicamentoAmpliado
     private List<Enfermero> personalFarmacia; // Agregación
     
     // Constructores
@@ -54,17 +56,17 @@ public class Farmacia {
     public LocalTime getHorarioFin() { return horarioFin; }
     public void setHorarioFin(LocalTime horarioFin) { this.horarioFin = horarioFin; }
     
-    public List<Medicamento> getInventario() { return new ArrayList<>(inventario); }
-    public void setInventario(List<Medicamento> inventario) { this.inventario = inventario; }
+    public List<MedicamentoAmpliado> getInventario() { return new ArrayList<>(inventario); }
+    public void setInventario(List<MedicamentoAmpliado> inventario) { this.inventario = inventario; }
     
     public List<Enfermero> getPersonalFarmacia() { return new ArrayList<>(personalFarmacia); }
     public void setPersonalFarmacia(List<Enfermero> personalFarmacia) { this.personalFarmacia = personalFarmacia; }
     
     // Métodos para gestionar inventario
-    public void agregarMedicamento(Medicamento medicamento) {
+    public void agregarMedicamento(MedicamentoAmpliado medicamento) {
         if (medicamento != null) {
             // Buscar si ya existe el medicamento
-            Medicamento existente = buscarMedicamentoPorNombre(medicamento.getNombreMedicamento());
+            MedicamentoAmpliado existente = buscarMedicamentoPorNombre(medicamento.getNombreMedicamento());
             if (existente != null) {
                 // Si existe, actualizar stock
                 existente.setStockActual(existente.getStockActual() + medicamento.getStockActual());
@@ -78,7 +80,7 @@ public class Farmacia {
     }
     
     public boolean dispensarMedicamento(String nombreMedicamento, int cantidad) {
-        Medicamento medicamento = buscarMedicamentoPorNombre(nombreMedicamento);
+        MedicamentoAmpliado medicamento = buscarMedicamentoPorNombre(nombreMedicamento);
         
         if (medicamento == null) {
             System.out.println("Medicamento no encontrado: " + nombreMedicamento);
@@ -105,25 +107,37 @@ public class Farmacia {
         return true;
     }
     
-    public Medicamento buscarMedicamentoPorNombre(String nombre) {
+    public MedicamentoAmpliado buscarMedicamentoPorNombre(String nombre) {
         return inventario.stream()
                 .filter(m -> m.getNombreMedicamento().equalsIgnoreCase(nombre))
                 .findFirst()
                 .orElse(null);
     }
     
-    public List<Medicamento> getMedicamentosStockBajo() {
+    public List<MedicamentoAmpliado> getMedicamentosStockBajo() {
         return inventario.stream()
                 .filter(m -> m.getStockActual() <= m.getStockMinimo())
-                .collect(java.util.stream.Collectors.toList());
+                .collect(Collectors.toList());
     }
     
-    public List<Medicamento> getMedicamentosPorVencer(int diasAnticipacion) {
-        java.time.LocalDate fechaLimite = java.time.LocalDate.now().plusDays(diasAnticipacion);
+    public List<MedicamentoAmpliado> getMedicamentosPorVencer(int diasAnticipacion) {
+        LocalDate fechaLimite = LocalDate.now().plusDays(diasAnticipacion);
         return inventario.stream()
                 .filter(m -> m.getFechaVencimiento() != null && 
                            m.getFechaVencimiento().isBefore(fechaLimite))
-                .collect(java.util.stream.Collectors.toList());
+                .collect(Collectors.toList());
+    }
+    
+    public List<MedicamentoAmpliado> getMedicamentosVencidos() {
+        return inventario.stream()
+                .filter(m -> m.estaVencido())
+                .collect(Collectors.toList());
+    }
+    
+    public List<MedicamentoAmpliado> getMedicamentosQueRequierenReposicion() {
+        return inventario.stream()
+                .filter(m -> m.requiereReposicion())
+                .collect(Collectors.toList());
     }
     
     // Métodos para gestionar personal
@@ -157,13 +171,15 @@ public class Farmacia {
         
         int stockBajo = getMedicamentosStockBajo().size();
         int porVencer = getMedicamentosPorVencer(30).size();
+        int vencidos = getMedicamentosVencidos().size();
         
         System.out.println("Medicamentos con stock bajo: " + stockBajo);
         System.out.println("Medicamentos por vencer (30 días): " + porVencer);
+        System.out.println("Medicamentos vencidos: " + vencidos);
         
         if (stockBajo > 0) {
             System.out.println("\n--- MEDICAMENTOS CON STOCK BAJO ---");
-            for (Medicamento med : getMedicamentosStockBajo()) {
+            for (MedicamentoAmpliado med : getMedicamentosStockBajo()) {
                 System.out.println("- " + med.getNombreMedicamento() + 
                                  " | Stock: " + med.getStockActual() + 
                                  " | Mínimo: " + med.getStockMinimo());
@@ -172,17 +188,66 @@ public class Farmacia {
         
         if (porVencer > 0) {
             System.out.println("\n--- MEDICAMENTOS POR VENCER ---");
-            for (Medicamento med : getMedicamentosPorVencer(30)) {
+            for (MedicamentoAmpliado med : getMedicamentosPorVencer(30)) {
                 System.out.println("- " + med.getNombreMedicamento() + 
                                  " | Vence: " + med.getFechaVencimiento());
+            }
+        }
+        
+        if (vencidos > 0) {
+            System.out.println("\n--- MEDICAMENTOS VENCIDOS ---");
+            for (MedicamentoAmpliado med : getMedicamentosVencidos()) {
+                System.out.println("- " + med.getNombreMedicamento() + 
+                                 " | Vencido: " + med.getFechaVencimiento());
             }
         }
     }
     
     public int getTotalMedicamentosEnStock() {
         return inventario.stream()
-                .mapToInt(Medicamento::getStockActual)
+                .mapToInt(MedicamentoAmpliado::getStockActual)
                 .sum();
+    }
+    
+    public void mostrarEstadoFarmacia() {
+        System.out.println("=== ESTADO DE FARMACIA ===");
+        System.out.println("Nombre: " + nombreFarmacia);
+        System.out.println("Ubicación: " + ubicacion);
+        System.out.println("Teléfono interno: " + telefonoInterno);
+        System.out.println("Farmacéutico jefe: " + 
+                          (farmaceuticoJefe != null ? farmaceuticoJefe.getNombreCompleto() : "No asignado"));
+        System.out.println("Horario: " + horarioInicio + " - " + horarioFin);
+        System.out.println("Estado: " + (estaAbierta() ? "ABIERTA" : "CERRADA"));
+        System.out.println("Personal: " + personalFarmacia.size() + " empleados");
+        System.out.println("Inventario: " + inventario.size() + " medicamentos diferentes");
+        System.out.println("Stock total: " + getTotalMedicamentosEnStock() + " unidades");
+    }
+    
+    public boolean tieneStockDisponible(String nombreMedicamento, int cantidadRequerida) {
+        MedicamentoAmpliado medicamento = buscarMedicamentoPorNombre(nombreMedicamento);
+        return medicamento != null && medicamento.tieneStockDisponible(cantidadRequerida);
+    }
+    
+    public void verificarInventario() {
+        System.out.println("\n=== VERIFICACIÓN DE INVENTARIO ===");
+        
+        List<MedicamentoAmpliado> stockBajo = getMedicamentosStockBajo();
+        List<MedicamentoAmpliado> vencidos = getMedicamentosVencidos();
+        List<MedicamentoAmpliado> porVencer = getMedicamentosPorVencer(30);
+        
+        if (stockBajo.isEmpty() && vencidos.isEmpty() && porVencer.isEmpty()) {
+            System.out.println("✅ El inventario está en óptimas condiciones");
+        } else {
+            if (!stockBajo.isEmpty()) {
+                System.out.println("⚠️ " + stockBajo.size() + " medicamentos requieren reposición");
+            }
+            if (!vencidos.isEmpty()) {
+                System.out.println("❌ " + vencidos.size() + " medicamentos están vencidos");
+            }
+            if (!porVencer.isEmpty()) {
+                System.out.println("⏰ " + porVencer.size() + " medicamentos vencen en los próximos 30 días");
+            }
+        }
     }
     
     @Override
@@ -190,7 +255,8 @@ public class Farmacia {
         return nombreFarmacia + " - " + ubicacion + 
                " | Horario: " + horarioInicio + "-" + horarioFin + 
                " | Medicamentos: " + inventario.size() + 
-               " | Personal: " + personalFarmacia.size();
+               " | Personal: " + personalFarmacia.size() +
+               " | Estado: " + (estaAbierta() ? "ABIERTA" : "CERRADA");
     }
     
     @Override
